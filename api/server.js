@@ -6,6 +6,7 @@ import teacherRouter from './routes/teacher.routes';
 import typeRouter from './routes/type.routes';
 import classroomRouter from './routes/classroom.routes';
 import subjectRouter from './routes/subject.routes';
+import groupRouter from './routes/group.routes';
 
 const app = express();
 const apiPort = process.env.PORT || 3041;
@@ -18,6 +19,7 @@ app.use('/api/teacher', teacherRouter);
 app.use('/api/type', typeRouter);
 app.use('/api/classroom', classroomRouter);
 app.use('/api/subject', subjectRouter);
+app.use('/api/group', groupRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
