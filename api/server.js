@@ -7,6 +7,7 @@ import typeRouter from './routes/type.routes';
 import classroomRouter from './routes/classroom.routes';
 import subjectRouter from './routes/subject.routes';
 import groupRouter from './routes/group.routes';
+import studentRouter from './routes/student.routes';
 
 const app = express();
 const apiPort = process.env.PORT || 3041;
@@ -14,12 +15,13 @@ const apiPort = process.env.PORT || 3041;
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
-app.use('/api/schedule', scheduleRouter);
-app.use('/api/employee', employeeRouter);
-app.use('/api/type', typeRouter);
-app.use('/api/classroom', classroomRouter);
-app.use('/api/subject', subjectRouter);
-app.use('/api/group', groupRouter);
+app.use('/api/schedules', scheduleRouter);
+app.use('/api/employees', employeeRouter);
+app.use('/api/types', typeRouter);
+app.use('/api/classrooms', classroomRouter);
+app.use('/api/subjects', subjectRouter);
+app.use('/api/groups', groupRouter);
+app.use('/api/students', studentRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
