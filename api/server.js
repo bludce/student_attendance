@@ -5,6 +5,7 @@ import scheduleRouter from './routes/schedule.routes';
 import teacherRouter from './routes/teacher.routes';
 import typeRouter from './routes/type.routes';
 import classroomRouter from './routes/classroom.routes';
+import subjectRouter from './routes/subject.routes';
 
 const app = express();
 const apiPort = process.env.PORT || 3041;
@@ -16,6 +17,7 @@ app.use('/api/schedule', scheduleRouter);
 app.use('/api/teacher', teacherRouter);
 app.use('/api/type', typeRouter);
 app.use('/api/classroom', classroomRouter);
+app.use('/api/subject', subjectRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
