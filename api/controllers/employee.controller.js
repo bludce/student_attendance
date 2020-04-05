@@ -40,6 +40,19 @@ const updateEmployee = (req, res) => {
   const body = req.body
   const id = req.params.id;
 
+  const user = {
+    "Код_пользователя": body.Код_пользователя,
+    "Логин": body.Логин,
+    "Пароль": body.Пароль,
+    "Роль": body.Роль,
+  }
+
+  const employee = {
+    "Код_сотрудника": body.Код_пользователя,
+    "ФИО": body.ФИО,
+    "Должность": body.Должность
+  }
+
   if (!body) {
     return res.status(400).json({
       success: false,
@@ -47,11 +60,14 @@ const updateEmployee = (req, res) => {
     })
   }
 
-  sql.query('UPDATE Сотрудники SET ? WHERE Код_сотрудника = ?', [body, id], (error, response) => {
+  sql.query('UPDATE Пользователи SET ? WHERE Код_пользователя = ?', [user, id], (error, response) => {
     if (error) throw error;
-	  return res.status(200).json({ 
-      success: true,
-    })
+	  sql.query('UPDATE Сотрудники SET ? WHERE Код_сотрудника = ?', [employee, id], (error, response) => {
+      if (error) throw error;
+      return res.status(200).json({ 
+        success: true,
+      })
+    });
   }); 
   
 }
@@ -80,7 +96,7 @@ const deleteEmployee = (req, res) => {
 }
 
 const getEmployees = (req, res) => {
-  sql.query('SELECT * FROM Сотрудники', function (error, results) {
+  sql.query('SELECT Код_сотрудника, ФИО, Должность, Логин, Пароль, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 
@@ -97,7 +113,7 @@ const getEmployees = (req, res) => {
 const getEmployeeById = (req, res) => {
   const id = req.params.id;
 
-  sql.query('SELECT * FROM Сотрудники WHERE Код_сотрудника = ?', id, function (error, results) {
+  sql.query('SELECT Код_сотрудника, ФИО, Должность, Логин, Пароль, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя WHERE Код_сотрудника = ?', id, function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 
