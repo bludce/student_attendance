@@ -2,7 +2,7 @@ import express from "express";
 import { urlencoded, json } from 'body-parser';
 
 import scheduleRouter from './routes/schedule.routes';
-import teacherRouter from './routes/teacher.routes';
+import employeeRouter from './routes/employee.routes';
 import typeRouter from './routes/type.routes';
 import classroomRouter from './routes/classroom.routes';
 import subjectRouter from './routes/subject.routes';
@@ -15,7 +15,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 app.use('/api/schedule', scheduleRouter);
-app.use('/api/teacher', teacherRouter);
+app.use('/api/employee', employeeRouter);
 app.use('/api/type', typeRouter);
 app.use('/api/classroom', classroomRouter);
 app.use('/api/subject', subjectRouter);
