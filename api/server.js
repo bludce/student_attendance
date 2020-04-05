@@ -4,7 +4,7 @@ import { urlencoded, json } from 'body-parser';
 import scheduleRouter from './routes/schedule.routes';
 
 const app = express();
-const apiPort = process.env.PORT || 3040;
+const apiPort = process.env.PORT || 3041;
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
