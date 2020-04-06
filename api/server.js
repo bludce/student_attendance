@@ -1,5 +1,6 @@
 import express from "express";
 import { urlencoded, json } from 'body-parser';
+import cors from 'cors';
 
 import scheduleRouter from './routes/schedule.routes';
 import employeeRouter from './routes/employee.routes';
@@ -12,10 +13,11 @@ import authRouter from './routes/auth.routes';
 import skipRouter from './routes/skip.routes';
 
 const app = express();
-const apiPort = process.env.PORT || 4101;
+const apiPort = process.env.PORT || 4102;
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
+app.use(cors());
 
 app.use('/api/schedules', scheduleRouter);
 app.use('/api/employees', employeeRouter);
