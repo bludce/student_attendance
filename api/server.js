@@ -8,6 +8,7 @@ import classroomRouter from './routes/classroom.routes';
 import subjectRouter from './routes/subject.routes';
 import groupRouter from './routes/group.routes';
 import studentRouter from './routes/student.routes';
+import authRouter from './routes/auth.routes';
 
 const app = express();
 const apiPort = process.env.PORT || 3041;
@@ -22,6 +23,7 @@ app.use('/api/classrooms', classroomRouter);
 app.use('/api/subjects', subjectRouter);
 app.use('/api/groups', groupRouter);
 app.use('/api/students', studentRouter);
+app.use('/api/login', authRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
