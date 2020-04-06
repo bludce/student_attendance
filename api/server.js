@@ -9,9 +9,10 @@ import subjectRouter from './routes/subject.routes';
 import groupRouter from './routes/group.routes';
 import studentRouter from './routes/student.routes';
 import authRouter from './routes/auth.routes';
+import skipRouter from './routes/skip.routes';
 
 const app = express();
-const apiPort = process.env.PORT || 3041;
+const apiPort = process.env.PORT || 4101;
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
@@ -24,6 +25,7 @@ app.use('/api/subjects', subjectRouter);
 app.use('/api/groups', groupRouter);
 app.use('/api/students', studentRouter);
 app.use('/api/login', authRouter);
+app.use('/api/skip', skipRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
