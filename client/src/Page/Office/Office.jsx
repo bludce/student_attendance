@@ -5,20 +5,20 @@ import './Office.sass'
 import Header from '../../components/Header/Header'
 import Profile from '../../components/Profile/Profile'
 import StudentList from '../../components/Student/StudentList'
-
+import GroupList from '../../components/Group/GroupList'
 
 const links = [
-  {
-    "name": "Профиль",
-    "link": "/office/profile"
-  },
+  // {
+  //   "name": "Профиль",
+  //   "link": "/office/profile"
+  // },
   {
     "name": "Студенты",
     "link": "/office/list"
   },
   {
     "name": "Группы",
-    "link": "/office/groups"
+    "link": "/office/group"
   },
   {
     "name": "Пропуски",
@@ -31,6 +31,7 @@ const Office = () => (
     <Header links={links} />
     <Switch>
       <Route path='/office/list' component={StudentList}/>
+      <Route path='/office/group' component={GroupList}/>
       <Route path='/office/profile' component={Profile}/>
     </Switch>
   </Fragment>
