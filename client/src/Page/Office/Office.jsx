@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header'
 import Profile from '../../components/Profile/Profile'
 import StudentList from '../../components/Student/StudentList'
 import GroupList from '../../components/Group/GroupList'
+import SkipList from '../../components/Skip/SkipList'
 
 const links = [
   // {
@@ -33,6 +34,7 @@ const Office = () => (
       <Route path='/office/list' component={StudentList}/>
       <Route path='/office/group' component={GroupList}/>
       <Route path='/office/profile' component={Profile}/>
+      <Route path='/office/skip' component={SkipList}/>
     </Switch>
   </Fragment>
 )
