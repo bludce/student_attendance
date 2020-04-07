@@ -11,10 +11,10 @@ import ScheduleList from '../../components/Schedule/ScheduleList'
 import EmployeeList from '../../components/Employee/EmployeeList'
 
 const links = [
-  {
-    "name": "Профиль",
-    "link": "/employee/profile"
-  },
+  // {
+  //   "name": "Профиль",
+  //   "link": "/employee/profile"
+  // },
   {
     "name": "Расписание",
     "link": "/employee/schedule"

@@ -43,7 +43,12 @@ export default class Login extends Component {
     })
       .then((resp) => resp.json()) // Transform the data into json
       .then(function(data) {
-        localStorage.setItem('role', data.insert[0].Роль);  
+        if (data.insert.length === 0) {
+          alert("Введите корректные логин и пароль")
+        } else {
+          localStorage.setItem('role', data.insert[0].Роль);  
+        }
+        
       })
  
     
