@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import SubjectForm from './SubjectForm'
-import './SubjectList.sass'
+import TypeForm from './TypeForm'
+import './TypeList.sass'
 
-class SubjectList extends Component {
+class TypeList extends Component {
 
   state = {
     currentIndex: -1,
@@ -14,7 +14,7 @@ class SubjectList extends Component {
   }
 
   fetchData = () => {
-    fetch('http://localhost:3000/api/subjects')
+    fetch('http://localhost:3000/api/types')
       .then(res => res.json())
       .then(result => this.setSubjects(result))
       .catch(error => error);
@@ -35,7 +35,7 @@ class SubjectList extends Component {
   }
 
   handleDelete = (index) => {
-    fetch('http://localhost:3000/api/subjects/' + index ,{
+    fetch('http://localhost:3000/api/types/' + index ,{
       method: 'DELETE',
     })
       .then(res => res.json())
@@ -45,12 +45,12 @@ class SubjectList extends Component {
 
   onAddOrEdit = (data) => {
     const add = {
-      Код_предмета: +data.Код_предмета,
+      Код_вида_занятия: +data.Код_вида_занятия,
       Название: data.Название,
       Описание: data.Описание
     }
     if (this.state.currentIndex == -1)
-      fetch('http://localhost:3000/api/subjects/' ,{
+      fetch('http://localhost:3000/api/types/' ,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ class SubjectList extends Component {
         .then(result => this.fetchData())
         .catch(error => error);
     else {
-      fetch('http://localhost:3000/api/subjects/' + +data.Код_предмета ,{
+      fetch('http://localhost:3000/api/types/' + +data.Код_вида_занятия ,{
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ class SubjectList extends Component {
     return(
       <div className="content">
         <h2 className="content__title">Форма для добавления/изменения</h2>
-          <SubjectForm
+          <TypeForm
             currentIndex={this.state.currentIndex}
             list={data}
             onAddOrEdit={this.onAddOrEdit}
@@ -90,7 +90,7 @@ class SubjectList extends Component {
           <table className="table">
             <thead>
               <tr className="table__row">
-                <td className="table__column">Код_предмета</td>
+                <td className="table__column">Код_вида_занятия</td>
                 <td className="table__column">Название</td>
                 <td className="table__column">Описание</td>
                 <td></td>
@@ -98,13 +98,13 @@ class SubjectList extends Component {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_предмета, Название, Описание }) => 
-                <tr key={Код_предмета} className="table__row">
-                  <td className="table__column">{Код_предмета}</td>
+              {data.map(({ Код_вида_занятия, Название, Описание }) => 
+                <tr key={Код_вида_занятия} className="table__row">
+                  <td className="table__column">{Код_вида_занятия}</td>
                   <td className="table__column">{Название}</td>
                   <td className="table__column">{Описание}</td>
-                  <td className="table__column"><button onClick={() => this.handleEdit(Код_предмета)}>Изменить</button></td>
-                  <td className="table__column"><button onClick={() => this.handleDelete(Код_предмета)}>Удалить</button></td>
+                  <td className="table__column"><button onClick={() => this.handleEdit(Код_вида_занятия)}>Изменить</button></td>
+                  <td className="table__column"><button onClick={() => this.handleDelete(Код_вида_занятия)}>Удалить</button></td>
                 </tr>
               )}
             </tbody>
@@ -114,4 +114,4 @@ class SubjectList extends Component {
   }
 }
 
-export default SubjectList
+export default TypeList

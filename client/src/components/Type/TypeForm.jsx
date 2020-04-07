@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class SubjectForm extends Component {
+class TypeForm extends Component {
 
     state = {
         ...this.returnStateObject()
@@ -9,15 +9,15 @@ class SubjectForm extends Component {
     returnStateObject() {
       if (this.props.currentIndex == -1)
         return {
-          Код_предмета: '',
+          Код_вида_занятия: '',
           Название: '',
           Описание: ''
         }
       else {
         for (var key in this.props.list) {
-          if (this.props.currentIndex === this.props.list[key].Код_предмета ) {
+          if (this.props.currentIndex === this.props.list[key].Код_вида_занятия ) {
             return {
-              Код_предмета: this.props.list[key].Код_предмета,
+              Код_вида_занятия: this.props.list[key].Код_вида_занятия,
               Название: this.props.list[key].Название ,
               Описание: this.props.list[key].Описание 
             }
@@ -47,7 +47,7 @@ class SubjectForm extends Component {
     render() {
       return (
         <form onSubmit={this.handleSubmit} autoComplete="off" className="form">
-          <input name="Код_предмета" placeholder="Код_предмета" onChange={this.handleInputChange} value={this.state.Код_предмета} className="form__input"/>
+          <input name="Код_вида_занятия" placeholder="Код_вида_занятия" onChange={this.handleInputChange} value={this.state.Код_вида_занятия} className="form__input"/>
           <input name="Название" placeholder="Название" onChange={this.handleInputChange} value={this.state.Название} className="form__input"/>
           <input name="Описание" placeholder="Описание" onChange={this.handleInputChange} value={this.state.Описание} className="form__input"/>
           <button className="form__submit" type="submit">Отправить</button>
@@ -56,4 +56,4 @@ class SubjectForm extends Component {
     }
 }
 
-export default SubjectForm
+export default TypeForm

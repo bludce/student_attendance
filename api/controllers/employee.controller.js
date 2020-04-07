@@ -95,8 +95,8 @@ const deleteEmployee = (req, res) => {
   
 }
 
-const getEmployees = (req, res) => {
-  sql.query('SELECT Код_сотрудника, ФИО, Должность, Логин, Пароль, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя', function (error, results) {
+const getEmployee = (req, res) => {
+  sql.query('SELECT Код_пользователя, ФИО, Логин, Пароль, Должность, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 
@@ -113,7 +113,7 @@ const getEmployees = (req, res) => {
 const getEmployeeById = (req, res) => {
   const id = req.params.id;
 
-  sql.query('SELECT Код_сотрудника, ФИО, Должность, Логин, Пароль, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя WHERE Код_сотрудника = ?', id, function (error, results) {
+  sql.query('SELECT Код_сотрудника, ФИО, Логин, Пароль, Должность, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя WHERE Код_сотрудника = ?', id, function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 
@@ -128,7 +128,7 @@ const getEmployeeById = (req, res) => {
 }
 
 export default {
-  getEmployees,
+  getEmployee,
   createEmployee,
   updateEmployee,
   deleteEmployee,
