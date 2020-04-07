@@ -11,14 +11,14 @@ const createStudent = (req, res) => {
   }
 
   const user = {
-    "Код_пользователя": body.Код_пользователя,
+    "Код_пользователя": body.Код_студента,
     "Логин": body.Логин,
     "Пароль": body.Пароль,
     "Роль": body.Роль,
   }
 
   const student = {
-    "Код_студента": body.Код_пользователя,
+    "Код_студента": body.Код_студента,
     "ФИО": body.ФИО,
     "Код_группы": body.Код_группы
   }
@@ -41,14 +41,14 @@ const updateStudent = (req, res) => {
   const id = req.params.id;
 
   const user = {
-    "Код_пользователя": body.Код_пользователя,
+    "Код_пользователя": body.Код_студента,
     "Логин": body.Логин,
     "Пароль": body.Пароль,
     "Роль": body.Роль,
   }
 
   const student = {
-    "Код_студента": body.Код_пользователя,
+    "Код_студента": body.Код_студента,
     "ФИО": body.ФИО,
     "Код_группы": body.Код_группы
   }
@@ -96,7 +96,7 @@ const deleteStudent = (req, res) => {
 }
 
 const getStudents = (req, res) => {
-  sql.query('SELECT Код_студента, ФИО, Название, Логин, Пароль, Роль FROM Студенты   INNER JOIN Пользователи ON Студенты.Код_студента = Пользователи.Код_пользователя INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы;', function (error, results) {
+  sql.query('SELECT Код_студента, ФИО, Студенты.Код_группы, Логин, Пароль, Роль FROM Студенты INNER JOIN Пользователи ON Студенты.Код_студента = Пользователи.Код_пользователя INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 

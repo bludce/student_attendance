@@ -15,6 +15,7 @@ const Main = () => (
       <Route path='/employee' component={Employee}/>
       <Route path='/office' component={Office}/>
       <Route path='/employee/profile' component={Profile}/>
+      <Route path='/office/profile' component={Profile}/>
     </Switch>
   </main>
 )
