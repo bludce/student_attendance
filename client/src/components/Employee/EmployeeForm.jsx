@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class EmployeeForm extends Component {
+class ScheduleForm extends Component {
 
     state = {
         ...this.returnStateObject()
@@ -65,4 +65,4 @@ class EmployeeForm extends Component {
     }
 }
 
-export default EmployeeForm
+export default ScheduleForm

@@ -3,6 +3,17 @@ import sql from "../models/db.js";
 const createSchedule = (req, res) => {
   const body = req.body
 
+  const schedule = {
+    Код_занятия: body.Код_занятия,
+    Код_предмета: body.Код_предмета,
+    Код_вида: body.Код_вида,
+    Код_сотрудника: body.Код_сотрудника,
+    Код_аудитории: body.Код_аудитории,
+    Код_группы: body.Код_группы,
+    Дата_проведения: body.Дата_проведения,
+    Время_проведение: body.Время_проведение
+  }
+
   if (!body) {
     return res.status(400).json({
       success: false,
@@ -10,7 +21,7 @@ const createSchedule = (req, res) => {
     })
   }
 
-  sql.query('INSERT INTO Занятие SET ?', body, (error, response) => {
+  sql.query('INSERT INTO Занятие SET ?', schedule, (error, response) => {
     if (error) throw error;
 	  return res.status(200).json({ 
       insert: 'success', 
@@ -23,6 +34,17 @@ const updateSchedule = (req, res) => {
   const body = req.body
   const id = req.params.id;
 
+  const schedule = {
+    Код_занятия: body.Код_занятия,
+    Код_предмета: body.Код_предмета,
+    Код_вида: body.Код_вида,
+    Код_сотрудника: body.Код_сотрудника,
+    Код_аудитории: body.Код_аудитории,
+    Код_группы: body.Код_группы,
+    Дата_проведения: body.Дата_проведения,
+    Время_проведение: body.Время_проведение
+  }
+
   if (!body) {
     return res.status(400).json({
       success: false,
@@ -30,7 +52,7 @@ const updateSchedule = (req, res) => {
     })
   }
 
-  sql.query('UPDATE Занятие SET ? WHERE Код_занятия = ?', [body, id], (error, response) => {
+  sql.query('UPDATE Занятие SET ? WHERE Код_занятия = ?', [schedule, id], (error, response) => {
     if (error) throw error;
 	  return res.status(200).json({ 
       success: true,
@@ -40,7 +62,7 @@ const updateSchedule = (req, res) => {
 }
 
 const deleteSchedule = (req, res) => {
-  const body = req.body
+  const body = req.body 
   const id = req.params.id;
 
   if (!body) {
