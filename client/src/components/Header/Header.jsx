@@ -3,25 +3,19 @@ import { NavLink } from 'react-router-dom';
 
 import './Header.sass'
 
-const Header = () => (
+const Header = (props) => (
   <header className="header">
-    <div className="container">
       <nav>
         <ul className="nav">
-          <li className="nav__item">
-            <NavLink exact activeClassName="nav__link--active" className="nav__link" to="/">
-              Home
+          {props.links.map((post) =>
+            <li className="nav__item" key={post.name+post.link}>
+              <NavLink exact activeClassName="nav__link--active" className="nav__link" to={post.link}>
+              {post.name}
             </NavLink>
-          </li>
-          <li className="nav__item">
-            <NavLink activeClassName="nav__link--active" className="nav__link" to="/login">
-              Login
-            </NavLink>
-          </li>
+            </li>
+          )}
         </ul>
-      </nav>
-    </div>
-    
+      </nav>   
   </header>
 )
 

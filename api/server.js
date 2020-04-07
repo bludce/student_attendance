@@ -13,7 +13,7 @@ import authRouter from './routes/auth.routes';
 import skipRouter from './routes/skip.routes';
 
 const app = express();
-const apiPort = process.env.PORT || 4102;
+const apiPort = process.env.PORT || 3000;
 
 app.use(urlencoded({ extended: true }));
 app.use(json());

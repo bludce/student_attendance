@@ -34,7 +34,7 @@ export default class Login extends Component {
       "Пароль": password
     }
 
-    fetch('http://localhost:4102/api/login', {
+    fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,10 +52,10 @@ export default class Login extends Component {
   render() {
     const redirectToReferrer = this.state.redirectToReferrer;
         if (redirectToReferrer === true && localStorage.getItem('role') === 'Учебный отдел') {
-          return <Redirect to="/employee" />
+          return <Redirect to="/employee/profile" />
         }
         if (redirectToReferrer === true && localStorage.getItem('role') === 'Студенческий офис') {
-          return <Redirect to="/office" />
+          return <Redirect to="/office/profile" />
         }
     return (
       <div className="login">
