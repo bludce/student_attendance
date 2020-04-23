@@ -96,11 +96,11 @@ class ScheduleList extends Component {
             <thead>
               <tr className="table__row">
                 <td className="table__column">Код_занятия</td>
-                <td className="table__column">Код_предмета</td>
-                <td className="table__column">Код_вида</td>
-                <td className="table__column">Код_сотрудника</td>
-                <td className="table__column">Код_аудитории</td>
-                <td className="table__column">Код_группы</td>
+                <td className="table__column">Предмет</td>
+                <td className="table__column">Вид</td>
+                <td className="table__column">ФИО</td>
+                <td className="table__column">Аудитория</td>
+                <td className="table__column">Группа</td>
                 <td className="table__column">Дата_проведения</td>
                 <td className="table__column">Время_проведение</td>
                 <td></td>
@@ -108,14 +108,14 @@ class ScheduleList extends Component {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_занятия, Код_предмета, Код_вида, Код_сотрудника, Код_аудитории, Код_группы, Дата_проведения, Время_проведение}) => 
+              {data.map(({ Код_занятия, Предмет, Вид, ФИО, Аудитория, Группа, Дата_проведения, Время_проведение}) => 
                 <tr key={Код_занятия} className="table__row">
                   <td className="table__column">{Код_занятия}</td>
-                  <td className="table__column">{Код_предмета}</td>
-                  <td className="table__column">{Код_вида}</td>
-                  <td className="table__column">{Код_сотрудника}</td>
-                  <td className="table__column">{Код_аудитории}</td>
-                  <td className="table__column">{Код_группы}</td>
+                  <td className="table__column">{Предмет}</td>
+                  <td className="table__column">{Вид}</td>
+                  <td className="table__column">{ФИО}</td>
+                  <td className="table__column">{Аудитория}</td>
+                  <td className="table__column">{Группа}</td>
                   <td className="table__column">{Дата_проведения}</td>
                   <td className="table__column">{Время_проведение}</td>
                   <td className="table__column"><button onClick={() => this.handleEdit(Код_занятия)}>Изменить</button></td>

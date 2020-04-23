@@ -22,7 +22,7 @@ const deleteSkip = (req, res) => {
 }
 
 const getSkips = (req, res) => {
-  sql.query('SELECT Код_занятия, Пропуски.Код_студента, ФИО, Название as Группа, Час FROM Пропуски INNER JOIN Студенты ON Студенты.Код_студента = Пропуски.Код_студента INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы', function (error, results) {
+  sql.query('SELECT Код_занятия, Пропуски.Код_студента, ФИО, Название as Группа FROM Пропуски INNER JOIN Студенты ON Студенты.Код_студента = Пропуски.Код_студента INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 
@@ -39,7 +39,7 @@ const getSkips = (req, res) => {
 const getSkipByStudentId = (req, res) => {
   const id = req.params.id;
 
-  sql.query('SELECT Код_занятия, Фио, Название as Группа, Час FROM Пропуски INNER JOIN Студенты ON Студенты.Код_студента = Пропуски.Код_студента INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы WHERE Пропуски.Код_студента = ?', id, function (error, results) {
+  sql.query('SELECT Код_занятия, Фио, Название as Группа FROM Пропуски INNER JOIN Студенты ON Студенты.Код_студента = Пропуски.Код_студента INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы WHERE Пропуски.Код_студента = ?', id, function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 

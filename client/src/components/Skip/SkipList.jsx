@@ -54,17 +54,15 @@ class SkipList extends Component {
                 <td className="table__column">Код_занятия</td>
                 <td className="table__column">ФИО</td>
                 <td className="table__column">Группа</td>
-                <td className="table__column">Час</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_занятия, Код_студента, ФИО, Группа, Час }) => 
+              {data.map(({ Код_занятия, Код_студента, ФИО, Группа }) => 
                 <tr className="table__row">
                   <td className="table__column">{Код_занятия}</td>
                   <td className="table__column">{ФИО}</td>
                   <td className="table__column">{Группа}</td>
-                  <td className="table__column">{Час}</td>
                   <td className="table__column"><button onClick={() => this.handleDelete(Код_занятия, Код_студента)}>Удалить</button></td>
                 </tr>
               )}

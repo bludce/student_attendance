@@ -82,7 +82,7 @@ const deleteSchedule = (req, res) => {
 }
 
 const getSchedules = (req, res) => {
-  sql.query('SELECT * FROM Занятие', function (error, results) {
+  sql.query('SELECT Код_занятия, Предмет.Название as Предмет, Вид_занятия.Название as Вид, Сотрудники.ФИО, Аудитории.Название as Аудитория, Группы.Название as Группа, Дата_проведения, Время_проведение FROM Занятие INNER JOIN Предмет ON Занятие.Код_предмета = Предмет.Код_предмета INNER JOIN Вид_занятия ON Занятие.Код_вида = Вид_занятия.Код_вида_занятия INNER JOIN Сотрудники ON Занятие.Код_сотрудника = Сотрудники.Код_сотрудника  INNER JOIN Аудитории ON Занятие.Код_аудитории = Аудитории.Код_аудитории  INNER JOIN Группы ON Занятие.Код_группы = Группы.Код_группы', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 
