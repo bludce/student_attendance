@@ -47,20 +47,26 @@ class SkipList extends Component {
     const { data = [] } = result
     return(
       <div className="content">
-        <h2 className="content__title">Форма для добавления/изменения</h2>
+        <h2 className="content__title">Изменение данных о пропусках студентов</h2>
           <table className="table">
             <thead>
               <tr className="table__row">
                 <td className="table__column">Код_занятия</td>
+                <td className="table__column">Предмет</td>
+                <td className="table__column">Дата проведения</td>
+                <td className="table__column">Время проведения</td>
                 <td className="table__column">ФИО</td>
                 <td className="table__column">Группа</td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_занятия, Код_студента, ФИО, Группа }) => 
+              {data.map(({ Код_занятия, Предмет, Дата_проведения, Время_проведение, Код_студента, ФИО, Группа }) => 
                 <tr className="table__row">
                   <td className="table__column">{Код_занятия}</td>
+                  <td className="table__column">{Предмет}</td>
+                  <td className="table__column">{Дата_проведения.slice(0,10)}</td>
+                  <td className="table__column">{Время_проведение}</td>
                   <td className="table__column">{ФИО}</td>
                   <td className="table__column">{Группа}</td>
                   <td className="table__column"><button onClick={() => this.handleDelete(Код_занятия, Код_студента)}>Удалить</button></td>
