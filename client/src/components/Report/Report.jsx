@@ -6,38 +6,72 @@ class Report extends Component {
 
   state = {
     result: {},
+    filterResult: {},
   }
 
-  fetchReport = (date, groupID) => {
-    if (date !== '' && groupID === '') {
-      fetch(`http://localhost:3000/api/reports/date/${date}`)
-        .then(res => res.json())
-        .then(result => this.setState({ result }))
-        .catch(error => error);
-    } else if (date === '' && groupID !== '') {
-      console.log(groupID)
-      fetch(`http://localhost:3000/api/reports/group/${groupID}`)
-        .then(res => res.json())
-        .then(result => this.setState({ result }))
-        .catch(error => error);
-    } else {
-      fetch(`http://localhost:3000/api/reports/all/${date}/${groupID}`)
-        .then(res => res.json())
-        .then(result => this.setState({ result }))
-        .catch(error => error);
-    }
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
+    fetch(`http://localhost:3000/api/reports/`)
+      .then(res => res.json())
+      .then(result => this.setState({ result }))
+      .catch(error => error);
+  }
+
+  filter = (date, group, subject) => {
     
-  }
-
-  render() {
     const { result } = this.state;
     const { data = [] } = result
+    let arr;
 
+    if (group !== '' && subject === '' && date === '') {
+      arr = data.filter((item) => item.Группа === group)
+    }
+
+    if (group === '' && subject !== '' && date === '') {
+      arr = data.filter((item) => item.Название === subject)
+    }
+
+    if (group === '' && subject === '' && date !== '') {
+      arr = data.filter((item) => item.Дата_проведения === date)
+    }
+
+    if (group !== '' && subject !== '' && date === '') {
+      arr = data.filter((item) => item.Название === subject && item.Группа === group)
+    }
+
+    if (group !== '' && subject === '' && date !== '') {
+      arr = data.filter((item) => item.Группа === group && item.Дата_проведения === date)
+    }
+
+    if (group === '' && subject !== '' && date !== '') {
+      arr = data.filter((item) => item.Название === subject && item.Дата_проведения === date)
+    }
+
+    if (group !== '' && subject !== '' && date !== '') {
+      arr = data.filter((item) => item.Название === subject && item.Группа === group && item.Дата_проведения === date)
+    }
+    
+
+    this.setState({
+      filterResult: {newResult: arr},
+    })
+  }
+
+
+  render() {
+    const { newResult = []} = this.state.filterResult
+    const { data = [] } = this.state.result
+    let count = 0;
+    let valid = 0
+   
     if (data.length === 0) {
       return (
         <div className="report">
           <div className="report-form">
-            <ReportForm fetchReport={this.fetchReport}/>
+            <ReportForm data={this.state.result} filter={this.filter}/>
           </div>
           <div className="report-content">
         
@@ -48,7 +82,7 @@ class Report extends Component {
       return(
         <div className="report">
           <div className="report-form">
-            <ReportForm fetchReport={this.fetchReport}/>
+            <ReportForm data={this.state.result} filter={this.filter}/>
           </div>
           <div className="report-content">
               <table className="table">
@@ -61,14 +95,31 @@ class Report extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map(({ Название, Время_проведение, ФИО, Уважительно }) => 
-                      <tr className="table__row">
+                    
+                    {newResult.map(({ Название, Время_проведение, ФИО, Уважительно }) => {
+                      count++
+                      Уважительно === 1 ? valid ++ : valid
+                      return (<tr className="table__row">
                         <td className="table__column">{Название}</td>
                         <td className="table__column">{Время_проведение}</td>
                         <td className="table__column">{ФИО}</td>
                         <td className="table__column">{Уважительно === 0 ? '-' : '+'}</td>
                       </tr>
+                      )
+                    }
                     )}
+                    <tr className="table__row">
+                        <td className="table__column">Итого</td>
+                        <td className="table__column">{count}</td>
+                        <td className="table__column"></td>
+                        <td className="table__column"></td>
+                    </tr>
+                    <tr className="table__row">
+                        <td className="table__column">Уважительно</td>
+                        <td className="table__column">{valid}</td>
+                        <td className="table__column"></td>
+                        <td className="table__column"></td>
+                    </tr>
                   </tbody>
                 </table>
 

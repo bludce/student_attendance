@@ -64,12 +64,12 @@ const getSubjects = (req, res) => {
     if (error) {
       return res.status(500).json({ 
         success: false, 
-        subjectList: results 
+        data: results 
       })
     };
     return res.status(200).json({ 
       success: true, 
-      data: results 
+      subjectList: results 
     })
   });
 }

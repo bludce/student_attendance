@@ -4,7 +4,7 @@ import ReportController from '../controllers/report.controller';
 
 const router = Router()
 
-router.get('/all/:reportDate/:reportGroupId', (req, res) => {
+router.get('/', (req, res) => {
   ReportController.getReport(req, res); 
 })
 
