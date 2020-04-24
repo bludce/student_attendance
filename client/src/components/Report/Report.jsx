@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './Report.sass'
 import ReportForm from './ReportForm'
+import { saveAs } from 'file-saver';
+
 
 class Report extends Component {
 
@@ -60,7 +62,30 @@ class Report extends Component {
     })
   }
 
+  createAndDownload = () => {
+    
+    fetch('http://localhost:3000/api/pdf/create' ,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state.filterResult)
+    })
+    .then(() => {
+      fetch('http://localhost:3000/api/pdf/fetch', {
+        headers: {
+          'Content-Type': 'application/pdf'
+        },
+        responseType: 'blob'
+      })
+      .then( r => r.blob())
+      .then(blob => saveAs(blob, 'test.pdf'))
+    })
+    
+    .catch(error => error);
+  }
 
+  
   render() {
     const { newResult = []} = this.state.filterResult
     const { data = [] } = this.state.result
@@ -122,7 +147,7 @@ class Report extends Component {
                     </tr>
                   </tbody>
                 </table>
-
+              <button className="form__submit marginTop" onClick={this.createAndDownload}>Скачать отчет</button>
           </div>
         </div>
       )
