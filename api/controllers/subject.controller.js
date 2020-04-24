@@ -64,7 +64,7 @@ const getSubjects = (req, res) => {
     if (error) {
       return res.status(500).json({ 
         success: false, 
-        data: results 
+        subjectList: results 
       })
     };
     return res.status(200).json({ 

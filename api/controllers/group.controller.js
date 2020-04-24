@@ -69,7 +69,7 @@ const getGroups = (req, res) => {
     };
     return res.status(200).json({ 
       success: true, 
-      data: results 
+      groupList: results 
     })
   });
 }
