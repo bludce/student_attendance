@@ -63,7 +63,6 @@ class Report extends Component {
   }
 
   createAndDownload = () => {
-    
     fetch('http://localhost:3000/api/pdf/create' ,{
       method: 'POST',
       headers: {
