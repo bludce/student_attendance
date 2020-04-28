@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { CSVLink } from "react-csv";
 import './SkipList.sass'
 
 class SkipList extends Component {
@@ -48,6 +49,16 @@ class SkipList extends Component {
     return(
       <div className="content">
         <h2 className="content__title">Изменение данных о пропусках студентов</h2>
+        <div className="btn-group">
+            <CSVLink
+              data={data}
+              filename={"my-file.csv"}
+              className="btn-group--export"
+              target="_blank"
+            >
+              Экпорт
+            </CSVLink>
+          </div>
           <table className="table">
             <thead>
               <tr className="table__row">

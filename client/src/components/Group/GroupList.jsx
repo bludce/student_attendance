@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { CSVLink } from "react-csv";
+
 import GroupForm from './GroupForm'
 import './GroupList.sass'
 
@@ -90,9 +92,16 @@ class GroupList extends Component {
             onAddOrEdit={this.onAddOrEdit}
           />
           <div className="btn-group">
-            <input type="file" name="file" id="file" class="btn-group--import" onChange={this.import}/>
+            <input type="file" name="file" id="file" className="btn-group--import" onChange={this.import}/>
             <label for="file">Импорт</label>
-            <button className="btn-group--export" >Экспорт</button>
+            <CSVLink
+              data={groupList}
+              filename={"my-file.csv"}
+              className="btn-group--export"
+              target="_blank"
+            >
+              Экпорт
+            </CSVLink>
           </div>
 
           <hr />

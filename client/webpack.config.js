@@ -6,7 +6,11 @@ module.exports = (argv) => ({
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     filename: 'bundle.js',
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   module: {
     rules: [

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { CSVLink } from "react-csv";
 import TypeForm from './TypeForm'
 import './TypeList.sass'
 
@@ -75,6 +76,10 @@ class TypeList extends Component {
     //   
   }
 
+  import = (e) => {
+    alert(`Данные загруженны из файла ${e.target.files[0].name}`)
+  }
+
   render() {
     const { result } = this.state;
     const { data = [] } = result
@@ -86,6 +91,19 @@ class TypeList extends Component {
             list={data}
             onAddOrEdit={this.onAddOrEdit}
           />
+          <div className="btn-group"> 
+            <input type="file" name="file" id="file" className="btn-group--import" onChange={this.import}/>
+            <label for="file">Импорт</label>
+            <CSVLink
+              data={data}
+              filename={"my-file.csv"}
+              className="btn-group--export"
+              target="_blank"
+            >
+              Экпорт
+            </CSVLink>
+          </div>
+          
           <hr />
           <table className="table">
             <thead>
