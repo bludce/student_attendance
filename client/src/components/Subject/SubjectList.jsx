@@ -21,7 +21,7 @@ class SubjectList extends Component {
   }
 
   returnList() {
-    return this.state.result.data
+    return this.state.result.subjectList
 }
 
   setSubjects = result => {
@@ -77,13 +77,13 @@ class SubjectList extends Component {
 
   render() {
     const { result } = this.state;
-    const { data = [] } = result
+    const { subjectList = [] } = result
     return(
       <div className="content">
         <h2 className="content__title">Форма для добавления/изменения</h2>
           <SubjectForm
             currentIndex={this.state.currentIndex}
-            list={data}
+            list={subjectList}
             onAddOrEdit={this.onAddOrEdit}
           />
           <hr />
@@ -98,7 +98,7 @@ class SubjectList extends Component {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_предмета, Название, Описание }) => 
+              {subjectList.map(({ Код_предмета, Название, Описание }) => 
                 <tr key={Код_предмета} className="table__row">
                   <td className="table__column">{Код_предмета}</td>
                   <td className="table__column">{Название}</td>

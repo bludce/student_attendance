@@ -13,6 +13,42 @@
     margin-bottom: 20px
 
 
+.btn-group 
+  display: flex
+  justify-content: center
+  &--import
+    width: 0.1px
+    height: 0.1px
+    opacity: 0
+    overflow: hidden
+    position: absolute
+    z-index: -1
+    & + label
+      margin: 0 10px
+      background-color: #222222
+      color: #fff
+      font-size: 14px
+      display: inline-block
+      padding: 10px 25px
+      border-radius: 3px
+      transition: 0.5s
+      border: 0
+      cursor: pointer
+
+  &--export
+    margin: 0 10px
+    background-color: #222222
+    color: #fff
+    display: inline-block
+    padding: 10px 25px
+    border-radius: 3px
+    transition: 0.5s
+    border: 0
+    cursor: pointer
+    &:hover
+      background-color: #000
+      text-decoration: none
+
 .form
   display: flex
   flex-direction: column

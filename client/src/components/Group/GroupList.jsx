@@ -21,7 +21,7 @@ class GroupList extends Component {
   }
 
   returnList() {
-    return this.state.result.data
+    return this.state.result.groupList
 }
 
   setSubjects = result => {
@@ -43,10 +43,10 @@ class GroupList extends Component {
       .catch(error => error);
   }
 
-  onAddOrEdit = (data) => {
+  onAddOrEdit = (groupList) => {
     const add = {
-      Код_группы: +data.Код_группы,
-      Название: data.Название
+      Код_группы: +groupList.Код_группы,
+      Название: groupList.Название
     }
     if (this.state.currentIndex == -1)
       fetch('http://localhost:3000/api/groups/' ,{
@@ -60,7 +60,7 @@ class GroupList extends Component {
         .then(result => this.fetchData())
         .catch(error => error);
     else {
-      fetch('http://localhost:3000/api/groups/' + +data.Код_группы ,{
+      fetch('http://localhost:3000/api/groups/' + +groupList.Код_группы ,{
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -74,17 +74,27 @@ class GroupList extends Component {
     //   
   }
 
+  import = (e) => {
+    alert(`Данные загруженны из файла ${e.target.files[0].name}`)
+  }
+
   render() {
     const { result } = this.state;
-    const { data = [] } = result
+    const { groupList = [] } = result
     return(
       <div className="content">
         <h2 className="content__title">Форма для добавления/изменения</h2>
           <GroupForm
             currentIndex={this.state.currentIndex}
-            list={data}
+            list={groupList}
             onAddOrEdit={this.onAddOrEdit}
           />
+          <div className="btn-group">
+            <input type="file" name="file" id="file" class="btn-group--import" onChange={this.import}/>
+            <label for="file">Импорт</label>
+            <button className="btn-group--export" >Экспорт</button>
+          </div>
+
           <hr />
           <table className="table">
             <thead>
@@ -96,7 +106,7 @@ class GroupList extends Component {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_группы, Название }) => 
+              {groupList.map(({ Код_группы, Название }) => 
                 <tr key={Код_группы} className="table__row">
                   <td className="table__column">{Код_группы}</td>
                   <td className="table__column">{Название}</td>
