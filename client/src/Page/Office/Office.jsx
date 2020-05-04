@@ -8,6 +8,7 @@ import StudentList from '../../components/Student/StudentList'
 import GroupList from '../../components/Group/GroupList'
 import SkipList from '../../components/Skip/SkipList'
 import Report from '../../components/Report/Report'
+import Statistics from '../../components/Statistics/Statistics'
 
 const links = [
   // {
@@ -29,6 +30,10 @@ const links = [
   {
     "name": "Отчеты",
     "link": "/office/report"
+  },
+  {
+    "name": "Статистика",
+    "link": "/office/statistics"
   }
 ]
 
@@ -41,7 +46,9 @@ const Office = () => (
       <Route path='/office/profile' component={Profile}/>
       <Route path='/office/skip' component={SkipList}/>
       <Route path='/office/report' component={Report}/>
+      <Route path='/office/statistics' component={Statistics}/>
     </Switch>
+    
   </Fragment>
 )
 
