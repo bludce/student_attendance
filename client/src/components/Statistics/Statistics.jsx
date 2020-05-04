@@ -7,32 +7,78 @@ import {Line, Pie} from 'react-chartjs-2';
 class Statistics extends Component {
 
   state = {
-    notValid: {},
-    valid: {}
+    result: {}
   }
 
   componentDidMount() {
-    this.fetchNotValid();
-    this.fetchValid();
+    this.fetchAll();
   }
 
-  fetchNotValid = () => {
-    fetch(`http://localhost:3000/api/statistics/notvalid`)
+  fetchAll = () => {
+    fetch(`http://localhost:3000/api/statistics`)
       .then(res => res.json())
-      .then(result => this.setState({ notValid: result }))
+      .then(result => this.setState({ result: result.result }))
       .catch(error => error);
   }
 
-  fetchValid = () => {
-    fetch(`http://localhost:3000/api/statistics/valid`)
+  filter = (group, subject) => {
+
+    if (group !== '' && subject !== '' ) {
+      fetch('http://localhost:3000/api/statistics/all' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Предмет: subject,
+          Группа: group,
+        }) 
+      })
       .then(res => res.json())
-      .then(result => this.setState({ valid: result }))
+      .then(result => this.setState({
+        result: result.result,
+      }))
       .catch(error => error);
+    } else
+
+    if (group !== '' && subject === '') {
+      fetch('http://localhost:3000/api/statistics/group' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({Группа: group})
+      })
+      .then(res => res.json())
+      .then(result => this.setState({
+        result: result.result,
+      }))
+      .catch(error => error);
+    } else
+    
+    if (group === '' && subject !== '') {
+      fetch('http://localhost:3000/api/statistics/subject' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({Предмет: subject})
+      })
+      .then(res => res.json())
+      .then(result => this.setState({
+        result: result.result,
+      }))
+      .catch(error => error);
+    } else {
+      this.fetchAll();
+    }
+
+    
+
   }
  
   render() {
-    const { valid = [] } = this.state.valid
-    const { notValid = [] } = this.state.notValid
+    const { valid = [], notValid = [] } = this.state.result
 
     let countValid = valid.reduce((sum, {Количество}) => {
       return sum += Количество 
@@ -52,6 +98,7 @@ class Statistics extends Component {
           backgroundColor: 'rgba(114, 122, 252, 0.3)',
           borderColor: '#727afc',
           borderWidth: 2,
+          spanGaps: true,
           data: []
         },
         {
@@ -61,6 +108,7 @@ class Statistics extends Component {
           backgroundColor: 'rgba(252, 86, 127, 0.3)',
           borderColor: '#fc567f',
           borderWidth: 2,
+          spanGaps: true,
           data: []
         }
       ] 
@@ -126,7 +174,7 @@ class Statistics extends Component {
       return(
         <div className="report">
           <div className="report-form">
-            <StatisticsForm data={this.state.result} filter={this.filter}/>
+            <StatisticsForm filter={this.filter}/>
           </div>
           <div className="report-content">
             <Line 

@@ -4,12 +4,20 @@ import StatisticController from '../controllers/statistics.controller';
 
 const router = Router()
 
-router.get('/valid', (req, res) => {
-  StatisticController.getValidStatistics(req, res); 
+router.get('/', (req, res) => {
+  StatisticController.getStatistics(req, res); 
 })
 
-router.get('/notvalid', (req, res) => {
-  StatisticController.getNotValidStatistics(req, res); 
+router.post('/group', (req, res) => {
+  StatisticController.getGroupStatistics(req, res); 
+})
+
+router.post('/subject', (req, res) => {
+  StatisticController.getSubjectStatistics(req, res); 
+})
+
+router.post('/all', (req, res) => {
+  StatisticController.getAllStatistics(req, res); 
 })
 
 export default router

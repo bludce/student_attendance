@@ -18,7 +18,7 @@ class StatisticsForm extends Component {
 
   handleSubmit = (e) => {
       e.preventDefault()
-      this.props.filter(this.state.Дата, this.state.Группа, this.state.Предмет)
+      this.props.filter(this.state.Группа, this.state.Предмет)
   }
 
   fetchGroup = () => {
