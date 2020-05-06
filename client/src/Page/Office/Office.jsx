@@ -11,10 +11,10 @@ import Report from '../../components/Report/Report'
 import Statistics from '../../components/Statistics/Statistics'
 
 const links = [
-  // {
-  //   "name": "Профиль",
-  //   "link": "/office/profile"
-  // },
+  {
+    "name": "Профиль",
+    "link": "/office/profile"
+  },
   {
     "name": "Студенты",
     "link": "/office/list"

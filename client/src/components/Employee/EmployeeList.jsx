@@ -111,8 +111,6 @@ class EmployeeList extends Component {
               <tr className="table__row">
                 <td className="table__column">Код_пользователя</td>
                 <td className="table__column">ФИО</td>
-                <td className="table__column">Логин</td>
-                <td className="table__column">Пароль</td>
                 <td className="table__column">Должность</td>
                 <td className="table__column">Роль</td>
                 <td></td>
@@ -120,12 +118,10 @@ class EmployeeList extends Component {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_пользователя, ФИО, Логин, Пароль, Должность, Роль }) => 
+              {data.map(({ Код_пользователя, ФИО, Должность, Роль }) => 
                 <tr key={Код_пользователя} className="table__row">
                   <td className="table__column">{Код_пользователя}</td>
                   <td className="table__column">{ФИО}</td>
-                  <td className="table__column">{Логин}</td>
-                  <td className="table__column">{Пароль}</td>
                   <td className="table__column">{Должность}</td>
                   <td className="table__column">{Роль}</td>
                   <td className="table__column"><button onClick={() => this.handleEdit(Код_пользователя)}>Изменить</button></td>

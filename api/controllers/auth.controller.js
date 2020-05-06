@@ -9,7 +9,7 @@ const auth = (req, res) => {
       error: 'You must provide a login and password',
     })
   }
-  sql.query('SELECT Роль FROM `Пользователи` WHERE Логин = ? AND Пароль = ?', [body.Логин, body.Пароль], (error, results) => {
+  sql.query('SELECT Код_пользователя, Роль FROM `Пользователи` WHERE Логин = ? AND Пароль = ?', [body.Логин, body.Пароль], (error, results) => {
     if (error) throw error;
 	  return res.status(200).json({ 
       insert: results, 

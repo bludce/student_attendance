@@ -11,8 +11,6 @@ class ScheduleForm extends Component {
         return {
           Код_пользователя: '',
           ФИО: '',
-          Логин: '',
-          Пароль: '',
           Должность: '',
           Роль: ''
         }
@@ -22,8 +20,6 @@ class ScheduleForm extends Component {
             return {
               Код_пользователя: this.props.list[key].Код_пользователя,
               ФИО: this.props.list[key].ФИО ,
-              Логин: this.props.list[key].Логин,
-              Пароль: this.props.list[key].Пароль,
               Должность: this.props.list[key].Должность,
               Роль: this.props.list[key].Роль,
             }
@@ -55,8 +51,6 @@ class ScheduleForm extends Component {
         <form onSubmit={this.handleSubmit} autoComplete="off" className="form">
           <input name="Код_пользователя" placeholder="Код_пользователя" onChange={this.handleInputChange} value={this.state.Код_пользователя} className="form__input"/>
           <input name="ФИО" placeholder="ФИО" onChange={this.handleInputChange} value={this.state.ФИО} className="form__input"/>
-          <input name="Логин" placeholder="Логин" onChange={this.handleInputChange} value={this.state.Логин} className="form__input"/>
-          <input name="Пароль" placeholder="Пароль" onChange={this.handleInputChange} value={this.state.Пароль} className="form__input"/>
           <input name="Должность" placeholder="Должность" onChange={this.handleInputChange} value={this.state.Должность} className="form__input"/>
           <input name="Роль" placeholder="Роль" onChange={this.handleInputChange} value={this.state.Роль} className="form__input"/>
           <button className="form__submit" type="submit">Отправить</button>

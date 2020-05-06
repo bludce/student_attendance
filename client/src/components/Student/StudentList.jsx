@@ -113,21 +113,18 @@ class StudentList extends Component {
                 <td className="table__column">Код_студента</td>
                 <td className="table__column">ФИО</td>
                 <td className="table__column">Код_группы</td>
-                <td className="table__column">Логин</td>
-                <td className="table__column">Пароль</td>
                 <td className="table__column">Роль</td>
                 <td></td>
                 <td></td>
               </tr>
             </thead>
             <tbody>
-              {data.map(({ Код_студента, ФИО,Код_группы, Логин, Пароль, Роль }) => 
+              {data.map(({ Код_студента, ФИО,Код_группы, Роль }) => 
                 <tr key={Код_студента} className="table__row">
                   <td className="table__column">{Код_студента}</td>
                   <td className="table__column">{ФИО}</td>
                   <td className="table__column">{Код_группы}</td>
-                  <td className="table__column">{Логин}</td>
-                  <td className="table__column">{Пароль}</td>
+
                   <td className="table__column">{Роль}</td>
                   <td className="table__column"><button onClick={() => this.handleEdit(Код_студента)}>Изменить</button></td>
                   <td className="table__column"><button onClick={() => this.handleDelete(Код_студента)}>Удалить</button></td>

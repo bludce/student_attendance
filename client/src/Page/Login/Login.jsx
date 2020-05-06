@@ -46,6 +46,7 @@ export default class Login extends Component {
         if (data.insert.length === 0) {
           alert("Введите корректные логин и пароль")
         } else {
+          localStorage.setItem('code', data.insert[0].Код_пользователя);  
           localStorage.setItem('role', data.insert[0].Роль);  
         }
         

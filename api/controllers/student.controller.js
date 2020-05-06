@@ -96,7 +96,7 @@ const deleteStudent = (req, res) => {
 }
 
 const getStudents = (req, res) => {
-  sql.query('SELECT Код_студента, ФИО, Студенты.Код_группы, Логин, Пароль, Роль FROM Студенты INNER JOIN Пользователи ON Студенты.Код_студента = Пользователи.Код_пользователя INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы', function (error, results) {
+  sql.query('SELECT Код_студента, ФИО, Студенты.Код_группы, Роль FROM Студенты INNER JOIN Пользователи ON Студенты.Код_студента = Пользователи.Код_пользователя INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 

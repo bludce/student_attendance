@@ -96,7 +96,7 @@ const deleteEmployee = (req, res) => {
 }
 
 const getEmployee = (req, res) => {
-  sql.query('SELECT Код_пользователя, ФИО, Логин, Пароль, Должность, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя', function (error, results) {
+  sql.query('SELECT Код_пользователя, ФИО, Должность, Роль FROM Сотрудники INNER JOIN Пользователи ON Сотрудники.Код_сотрудника = Пользователи.Код_пользователя', function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 

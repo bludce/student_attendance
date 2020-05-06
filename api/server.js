@@ -14,6 +14,7 @@ import skipRouter from './routes/skip.routes';
 import reportRouter from './routes/report.routes';
 import pdfRouter from './routes/pdf.routes';
 import statisticsRouter from './routes/statistics.routes';
+import profileRouter from './routes/profile.routes';
 
 const app = express();
 const apiPort = process.env.PORT || 3000;
@@ -34,6 +35,7 @@ app.use('/api/skip', skipRouter);
 app.use('/api/reports', reportRouter);
 app.use('/api/pdf', pdfRouter);
 app.use('/api/statistics', statisticsRouter);
+app.use('/api/profile', profileRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
