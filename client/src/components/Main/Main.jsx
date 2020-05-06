@@ -6,6 +6,7 @@ import Login from '../../Page/Login/Login';
 import Employee from '../../Page/Employee/Employee';
 import Office from '../../Page/Office/Office'
 import Profile from '../../components/Profile/Profile'
+import Teacher from '../../Page/Teacher/Teacher'
 
 const Main = () => (
   <main className="container">
@@ -14,8 +15,10 @@ const Main = () => (
       <Route path='/login' component={Login}/>
       <Route path='/employee' component={Employee}/>
       <Route path='/office' component={Office}/>
+      <Route path='/teacher' component={Teacher}/>
       <Route path='/employee/profile' component={Profile}/>
       <Route path='/office/profile' component={Profile}/>
+      <Route path='/teacher/profile' component={Profile}/>
     </Switch>
   </main>
 )

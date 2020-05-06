@@ -16,16 +16,6 @@ class Statistics extends Component {
 
   componentDidMount() {
     this.fetchAll();
-    fetch(`http://localhost:3000/api/statistics/students`)
-      .then(res => res.json())
-      .then(result => {
-        this.setState({
-          result: {
-            all: result.all.length
-          }
-        })
-      })
-      .catch(error => error);
   }
 
   fetchAll = () => {

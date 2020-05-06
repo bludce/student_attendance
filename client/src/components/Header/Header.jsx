@@ -7,6 +7,7 @@ import './Header.sass'
 const Header = (props) => {
   const logout = () => {
     localStorage.setItem('role', '')
+    localStorage.setItem('code', '')
   }
   return (
     <header className="header">

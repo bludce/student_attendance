@@ -63,6 +63,9 @@ export default class Login extends Component {
         if (redirectToReferrer === true && localStorage.getItem('role') === 'Студенческий офис') {
           return <Redirect to="/office/profile" />
         }
+        if (redirectToReferrer === true && localStorage.getItem('role') === 'Преподаватель') {
+          return <Redirect to="/teacher/profile" />
+        }
     return (
       <div className="login">
         <h2 className="login__title">Авторизация</h2>
