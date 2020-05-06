@@ -7,11 +7,25 @@ import {Line, Pie} from 'react-chartjs-2';
 class Statistics extends Component {
 
   state = {
-    result: {}
+    result: {
+      all: 0,
+      valid: [],
+      notValid: []
+    }
   }
 
   componentDidMount() {
     this.fetchAll();
+    fetch(`http://localhost:3000/api/statistics/students`)
+      .then(res => res.json())
+      .then(result => {
+        this.setState({
+          result: {
+            all: result.all.length
+          }
+        })
+      })
+      .catch(error => error);
   }
 
   fetchAll = () => {
@@ -22,7 +36,6 @@ class Statistics extends Component {
   }
 
   filter = (group, subject) => {
-
     if (group !== '' && subject !== '' ) {
       fetch('http://localhost:3000/api/statistics/all' ,{
         method: 'POST',
@@ -78,7 +91,7 @@ class Statistics extends Component {
   }
  
   render() {
-    const { valid = [], notValid = [] } = this.state.result
+    const { valid = [], notValid = [], all=[] } = this.state.result
 
     let countValid = valid.reduce((sum, {Количество}) => {
       return sum += Количество 
@@ -87,6 +100,8 @@ class Statistics extends Component {
     let countNotValid = notValid.reduce((sum, {Количество}) => {
       return sum += Количество 
     }, 0)
+
+    let countAll = all.length - countValid;
 
     let lineDataChart = {
       labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'],
@@ -117,21 +132,18 @@ class Statistics extends Component {
 
     let PieDataChart = {
       labels: [
+        "Количество посещенных",
         "Количество без уважительных причин",
-        "Количество с уважительными причинами",
       ],
       datasets: [
         {
           label: 'Rainfall',
           backgroundColor: [
-            '#B21F00',
-            '#C9DE00',
+            '#00BCD4',
+            '#009688',
+            '#4CAF50',
           ],
-          hoverBackgroundColor: [
-          '#501800',
-          '#4B5000',
-          ],
-          data: [countValid, countNotValid]
+          data: [countAll, countValid]
         }
       ]
       
