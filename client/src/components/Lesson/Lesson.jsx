@@ -40,7 +40,7 @@ class Lesson extends Component {
       
         <div className="report">
           <div className="report-form">
-            <LessonForm data={students}/>
+            <LessonForm students={students} lesson={lesson}/>
           </div>
           <div className="report-content">
             <h2 className="content__title">Текущее занятие</h2>

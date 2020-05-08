@@ -16,6 +16,7 @@ import pdfRouter from './routes/pdf.routes';
 import statisticsRouter from './routes/statistics.routes';
 import profileRouter from './routes/profile.routes';
 import lessonRouter from './routes/lesson.routes';
+import qrRouter from './routes/qr.routes';
 
 const app = express();
 const apiPort = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ app.use('/api/pdf', pdfRouter);
 app.use('/api/statistics', statisticsRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/lesson', lessonRouter);
+app.use('/api/qr', qrRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
