@@ -46,5 +46,20 @@ app.get('/', (req, res) => {
 })
 
 
+const socket = require('socket.io');
+const io = socket(app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`)));
 
-app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+
+io.on('connection', (socket) => {
+  console.log('user connected');
+    socket.on('getQrcode', (callback)=>{
+      callback(socket.id);
+    });  
+    socket.on('room', function(room) {
+      socket.join(room);
+      console.log(room)
+    });
+    socket.on('disconnect', ()=>{
+        console.log('user disconnected');
+    });
+});

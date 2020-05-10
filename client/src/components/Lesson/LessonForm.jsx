@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Modal from "../Modal/Modal";
+import io from "socket.io-client";
 
 class LessonForm extends Component {
 
@@ -8,6 +9,15 @@ class LessonForm extends Component {
     show: false,
     qr: '',
   }
+  
+  componentDidMount = () => {
+    this.socket.on('connect', ()=>{
+      console.log('connected');
+    });
+  }
+  
+
+  socket = io('localhost:3000');
   
   showModal = result => {
     this.setState({
@@ -29,6 +39,8 @@ class LessonForm extends Component {
 
   qrcode = () => {
     const data = this.props.lesson[0].Предмет;
+    this.socket.emit('room', data);
+
     fetch('http://localhost:3000/api/qr/create' ,{
         method: 'POST',
         headers: {
