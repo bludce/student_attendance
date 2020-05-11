@@ -52,10 +52,9 @@ export default class SigninScreen extends React.Component {
         })
 
         let data = await response.json()
-        console.log(data);
 
         if (data.insert.length === 0) {
-            Alert.alert('Error', data);
+            Alert.alert('Ошибка', 'Введите логин и пароль');
         }
         else {
             await AsyncStorage.setItem('userToken', `${data.insert[0].Код_пользователя}`);
@@ -104,14 +103,13 @@ const style = StyleSheet.create({
         alignItems: 'center'
     }, 
     input: {
-        backgroundColor: '#DAE1F1',
-        height: 40,
-        marginHorizontal: 20,
-        borderRadius: 20,
-        color: '#333333',
-        marginBottom: 30,
-        paddingLeft: 15
-    },
+        width: 200,
+        height: 44,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: 'black',
+        marginBottom: 10,
+      },
     spinnerTextStyle: {
         textAlign: 'center'
     },

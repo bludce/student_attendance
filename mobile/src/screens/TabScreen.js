@@ -4,33 +4,45 @@ import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 import HomeScreen from './HomeScreen';
-import SettingScreen from './SettingScreen';
+import CameraScreen from './CameraScreen';
+import SkipScreen from './SkipScreen';
 
 const SignoutScreen = () => {}
+
+
 
 export const TabScreen = createBottomTabNavigator({
     Home: {
         screen: HomeScreen, 
         navigationOptions: {
-            tabBarLabel: 'Home', 
+            tabBarLabel: 'Профиль', 
             tabBarIcon: ({ tintColor }) => (
                 <Ionicons name="ios-home" color={tintColor} size={25} />
             )
         }
     }, 
-    Settings: {
-        screen: SettingScreen, 
+    Camera: {
+        screen: CameraScreen, 
         navigationOptions: {
-            tabBarLabel: 'Settings', 
+            tabBarLabel: 'Камера', 
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name="ios-settings" color={tintColor} size={25} />
+                <Ionicons name="ios-camera" color={tintColor} size={25} />
+            )
+        }
+    }, 
+    Skip: {
+        screen: SkipScreen, 
+        navigationOptions: {
+            tabBarLabel: 'Пропуски', 
+            tabBarIcon: ({ tintColor }) => (
+                <Ionicons name="ios-eye" color={tintColor} size={25} />
             )
         }
     }, 
     Signout: {
         screen: SignoutScreen, 
         navigationOptions: {
-            tabBarLabel: 'Signout', 
+            tabBarLabel: 'Выход', 
             tabBarIcon: ({ tintColor }) => (
                 <SimpleLineIcons name="logout" color={tintColor} size={20} />
             ), 

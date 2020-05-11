@@ -8,4 +8,8 @@ router.get('/:id', (req, res) => {
   ProfileController.getProfile(req, res); 
 })
 
+router.get('/student/:id', (req, res) => {
+  ProfileController.getStudentProfile(req, res); 
+})
+
 export default router
