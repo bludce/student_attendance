@@ -9,8 +9,6 @@ import SkipScreen from './SkipScreen';
 
 const SignoutScreen = () => {}
 
-
-
 export const TabScreen = createBottomTabNavigator({
     Home: {
         screen: HomeScreen, 

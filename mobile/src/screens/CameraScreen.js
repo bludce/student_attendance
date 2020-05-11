@@ -1,35 +1,46 @@
-import React from 'react';
-import {StyleSheet, View, Text, AsyncStorage} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import * as Permissions from 'expo-permissions';
 
-export default class SettingScreen extends React.Component {
+export default function App() {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
 
-    constructor() {
-        super();
-        this.state = {
-            name: ''
-        };
-        this._bootstrap();
-    }
+  useEffect(() => {
+    (async () => {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA);
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
 
-    _bootstrap = async () => {
-        const userName = await AsyncStorage.getItem('userName');
-        this.setState({name: userName});
-    }
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanned(true);
+    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  };
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>Welcome {this.state.name}</Text>
-                <Text>to Setting Screen</Text>
-            </View>
-        );
-    }
+  if (hasPermission === null) {
+    return <Text>Запрос на доступ к камере</Text>;
+  }
+  if (hasPermission === false) {
+    return <Text>Нет доступа к камере</Text>;
+  }
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+      }}>
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
+
+      {/* {scanned && (
+        <Button title={'Отсканировть заново'} onPress={() => setScanned(false)} />
+      )} */}
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center'
-    }
-});
