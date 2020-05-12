@@ -60,10 +60,41 @@ class Lesson extends Component {
     students.map(({ФИО}) => {
       users.includes(ФИО) ? this.setState({activeStudents:users}) : ''
     })
-    // this.setState({
-    //   students: users
-    // })
     console.log(users)
+  }
+
+  saveLesson = () => {
+    const {students, activeStudents} = this.state
+    
+    const arr = students.map(({ФИО, Код_студента}) => {
+      if (activeStudents.includes(ФИО)) {
+        return 
+      } else {
+        return Код_студента
+      }
+      
+    })
+    console.log(arr)
+    console.log(this.state.lesson[0].Код_занятия)
+    arr.map((item) => {
+      if (item !== undefined) 
+        fetch('http://localhost:3000/api/lesson/' ,{
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Код_занятия: this.state.lesson[0].Код_занятия,
+            Код_студента: item,
+            Код_группы: this.state.lesson[0].Код_группы,
+            Уважительно: false
+          })
+        })
+          .then(res => res.json())
+          .then(result => console.log('Добавлено'))
+          .catch(error => error);
+    })
+    
   }
   
   render() {
@@ -102,6 +133,7 @@ class Lesson extends Component {
                     )} 
                   </tbody>
                 </table>
+                <button className="form__submit" onClick={this.saveLesson}>Сохранить</button>
           </div>
         </div>
       )

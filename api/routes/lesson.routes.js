@@ -4,8 +4,8 @@ import LessonController from '../controllers/lesson.controller';
 
 const router = Router()
 
-router.put('/:id', (req, res) => { 
-  LessonController.updateLesson(req, res) 
+router.post('/', (req, res) => { 
+  LessonController.saveLesson(req, res) 
 })
 
 router.get('/', (req, res) => {
