@@ -16,7 +16,7 @@ class LessonForm extends Component {
     });
     
     this.socket.on('ROOM:SET_USERS', (roomId) => {
-      fetch(`http://192.168.1.74:3000/rooms/${roomId}`)
+      fetch(`http://localhost:3000/rooms/${roomId}`)
       .then(res => res.json())
       .then(result => this.props.filter(result))
     });
@@ -38,9 +38,24 @@ class LessonForm extends Component {
       })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
       e.preventDefault()
-      this.props.filter(this.state.Студент)
+      const data = this.props.lesson[0].Предмет;  
+      this.props.addStudent(data,this.state.Студент)
+      // const obj = {
+      //   roomId: `${data}`,
+      //   userName: `${this.state.Студент}`,
+      // };
+
+      // await fetch('http://192.168.1.74:3000/rooms' ,{
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(obj)
+      // })
+
+      // this.socket.emit('ROOM:JOIN', obj)
   }
 
   qrcode = async () => {

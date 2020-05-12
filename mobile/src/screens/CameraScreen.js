@@ -36,13 +36,7 @@ export default function App() {
         body: JSON.stringify(obj)
       })
 
-    socket.emit('ROOM:JOIN', obj)
-
-    fetch(`http://192.168.1.74:3000/rooms/${obj.roomId}`)
-      .then(res => res.json())
-      .then(result => console.log(result))
-
-    
+    socket.emit('ROOM:JOIN', obj)  
       
   };
 

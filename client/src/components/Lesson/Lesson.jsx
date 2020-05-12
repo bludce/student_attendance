@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './Lesson.sass'
 import LessonForm from './LessonForm'
-
+import io from "socket.io-client";
 
 
 class Lesson extends Component {
@@ -12,8 +12,15 @@ class Lesson extends Component {
     activeStudents: [],
   }
 
+  socket = io('localhost:3000');
+
   componentDidMount() {
     this.fetchData();
+    this.socket.on('ROOM:SET_USERS', (roomId) => {
+      fetch(`http://localhost:3000/rooms/${roomId}`)
+      .then(res => res.json())
+      .then(result => console.log(result))
+    });
   }
 
   fetchData = () => {
@@ -28,6 +35,24 @@ class Lesson extends Component {
           })
       })
       .catch(error => error);
+  }
+
+  addStudent = async (lesson, student) => {
+
+    const obj = {
+        roomId: `${lesson}`,
+        userName: `${student}`,
+      };
+
+      await fetch('http://192.168.1.74:3000/rooms' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj)
+      })
+
+      this.socket.emit('ROOM:JOIN', obj)
   }
 
   filter = ({users}) => {
@@ -48,7 +73,7 @@ class Lesson extends Component {
       
         <div className="report">
           <div className="report-form">
-            <LessonForm students={students} lesson={lesson} filter={this.filter}/>
+            <LessonForm students={students} lesson={lesson} filter={this.filter} addStudent={this.addStudent}/>
           </div>
           <div className="report-content">
             <h2 className="content__title">Текущее занятие</h2>
