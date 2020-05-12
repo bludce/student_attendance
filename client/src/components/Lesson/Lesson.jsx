@@ -9,6 +9,7 @@ class Lesson extends Component {
   state = {
     lesson: [],
     students: [],
+    activeStudents: [],
   }
 
   componentDidMount() {
@@ -29,18 +30,25 @@ class Lesson extends Component {
       .catch(error => error);
   }
 
-  filter = () => {
-    
+  filter = ({users}) => {
+    const {students} = this.state
+    students.map(({ФИО}) => {
+      users.includes(ФИО) ? this.setState({activeStudents:users}) : ''
+    })
+    // this.setState({
+    //   students: users
+    // })
+    console.log(users)
   }
   
   render() {
-    const {lesson, students} = this.state;
+    const {lesson, students, activeStudents} = this.state;
 
     return(
       
         <div className="report">
           <div className="report-form">
-            <LessonForm students={students} lesson={lesson}/>
+            <LessonForm students={students} lesson={lesson} filter={this.filter}/>
           </div>
           <div className="report-content">
             <h2 className="content__title">Текущее занятие</h2>
@@ -64,7 +72,7 @@ class Lesson extends Component {
                     {students.map(({ФИО, Код_студента}) => 
                       <tr key={Код_студента} className="table__row">
                         <td className="table__column">{ФИО}</td>
-                        <td className="table__column"></td>
+                        <td className="table__column">{activeStudents.includes(ФИО) ? '+' : ''}</td>
                       </tr>
                     )} 
                   </tbody>

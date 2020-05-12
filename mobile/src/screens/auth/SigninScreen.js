@@ -58,7 +58,6 @@ export default class SigninScreen extends React.Component {
         }
         else {
             await AsyncStorage.setItem('userToken', `${data.insert[0].Код_пользователя}`);
-            await AsyncStorage.setItem('userName', data.insert[0].Роль);
             this.props.navigation.navigate('App');
         }
     }

@@ -14,8 +14,14 @@ class LessonForm extends Component {
     this.socket.on('connect', ()=>{
       console.log('connected');
     });
+    
+    this.socket.on('ROOM:SET_USERS', (roomId) => {
+      fetch(`http://192.168.1.74:3000/rooms/${roomId}`)
+      .then(res => res.json())
+      .then(result => this.props.filter(result))
+    });
+    
   }
-  
 
   socket = io('localhost:3000');
   
@@ -37,10 +43,19 @@ class LessonForm extends Component {
       this.props.filter(this.state.Студент)
   }
 
-  qrcode = () => {
-    const data = this.props.lesson[0].Предмет;
-    this.socket.emit('room', data);
+  qrcode = async () => {
+    
+    const data = this.props.lesson[0].Предмет;    
+    
+    await fetch('http://192.168.1.74:3000/rooms' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({roomId: data, userName: "Teacher"})
+      })
 
+    this.socket.emit('ROOM:JOIN', {roomId: data, userName: "Teacher"})
     fetch('http://localhost:3000/api/qr/create' ,{
         method: 'POST',
         headers: {
@@ -50,13 +65,14 @@ class LessonForm extends Component {
       })
         .then(res => res.json())
         .then(result => {
-          this.showModal(result);
+          this.showModal(result)
+
         })
         .catch(error => error);
   }
 
   render() {
-
+    
     return (
       <Fragment>
         <button className="qr" onClick={this.qrcode}>Получить QR-код</button>

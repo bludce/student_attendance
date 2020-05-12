@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
       let res = await response.json()
       const { data = [] } = res
       const {Группа, ФИО} = data[0]
-
+      AsyncStorage.setItem('userName', ФИО);
       this.setState({Группа, ФИО})
         
     }

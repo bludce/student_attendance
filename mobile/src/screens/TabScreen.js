@@ -46,6 +46,7 @@ export const TabScreen = createBottomTabNavigator({
             ), 
             tabBarOnPress: async ({navigation}) => {
                 await AsyncStorage.clear();
+                
                 navigation.navigate('Auth');
             }
         }

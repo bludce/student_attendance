@@ -50,16 +50,46 @@ const socket = require('socket.io');
 const io = socket(app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`)));
 
 
+const rooms = new Map();
+
+app.get('/rooms/:id', (req, res) => {
+  const { id: roomId } = req.params;
+  const obj = rooms.has(roomId)
+    ? {
+        users: [...rooms.get(roomId).get('users').values()],
+      }
+    : { users: []};
+  return res.status(200).json(obj)
+});
+
+app.post('/rooms', (req, res) => {
+  const { roomId, userName } = req.body;
+  if (!rooms.has(roomId)) {
+    rooms.set(
+      roomId,
+      new Map([
+        ['users', new Set()],
+      ]),
+    );
+  } 
+  res.send();
+});
+
 io.on('connection', (socket) => {
-  console.log('user connected');
-    socket.on('getQrcode', (callback)=>{
-      callback(socket.id);
-    });  
-    socket.on('room', function(room) {
-      socket.join(room);
-      console.log(room)
+  socket.on('ROOM:JOIN', ({roomId, userName}) => {
+    socket.join(roomId);
+    rooms.get(roomId).get('users').add(userName);
+    socket.to(roomId).broadcast.emit('ROOM:SET_USERS', roomId);
+    console.log(rooms)
+  });
+
+  socket.on('disconnect', () => {
+    rooms.forEach((value, roomId) => {
+      if (value.get('users').delete(socket.id)) {
+        const users = [...value.get('users').values()];
+        socket.to(roomId).broadcast.emit('ROOM:SET_USERS', users);
+      }
     });
-    socket.on('disconnect', ()=>{
-        console.log('user disconnected');
-    });
+  });
+  console.log('user connected', socket.id);
 });

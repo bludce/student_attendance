@@ -20,7 +20,7 @@ const getProfile = (req, res) => {
 const getStudentProfile = (req, res) => {
   const id = req.params.id;
 
-  sql.query('SELECT ФИО, Группы.Название as Группа FROM Студенты INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы WHERE Код_студента = 1002', id, function (error, results) {
+  sql.query('SELECT ФИО, Группы.Название as Группа FROM Студенты INNER JOIN Группы ON Студенты.Код_группы = Группы.Код_группы WHERE Код_студента = ?', id, function (error, results) {
     if (error) {
       return res.status(500).json({ 
         success: false, 

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, AsyncStorage } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
+
+import io from "socket.io-client";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+
+  socket = io('http://192.168.1.74:3000', { jsonp: false, agent: '-', pfx: '-', cert: '-', ca: '-', ciphers: '-', rejectUnauthorized: '-', perMessageDeflate: '-' });
 
   useEffect(() => {
     (async () => {
@@ -14,9 +18,32 @@ export default function App() {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    alert(`Вы успешно отметелись на занятии`);
+    const ФИО = await AsyncStorage.getItem('userName');
+
+    const obj = {
+      roomId: `${data}`,
+      userName: `${ФИО}`,
+    };
+    
+    await fetch('http://192.168.1.74:3000/rooms' ,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj)
+      })
+
+    socket.emit('ROOM:JOIN', obj)
+
+    fetch(`http://192.168.1.74:3000/rooms/${obj.roomId}`)
+      .then(res => res.json())
+      .then(result => console.log(result))
+
+    
+      
   };
 
   if (hasPermission === null) {
@@ -25,6 +52,7 @@ export default function App() {
   if (hasPermission === false) {
     return <Text>Нет доступа к камере</Text>;
   }
+
 
   return (
     <View
@@ -38,9 +66,9 @@ export default function App() {
         style={StyleSheet.absoluteFillObject}
       />
 
-      {/* {scanned && (
+      {scanned && (
         <Button title={'Отсканировть заново'} onPress={() => setScanned(false)} />
-      )} */}
+      )}
     </View>
   );
 }
