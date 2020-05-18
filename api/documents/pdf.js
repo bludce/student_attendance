@@ -23,7 +23,9 @@ return `
           </style>
        </head>
        <body>
-          <h1>Отчет</h1>
+          <h1>Отчет по пропускам занятий</h1>
+          <p>Группа: ИТ-16</p>
+          <p>Дата занятий: 16.02.2020</p>
           <table class="table">
             <thead>
               <tr class="table__row">

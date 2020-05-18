@@ -12,7 +12,6 @@ class SkipList extends Component {
   }
 
   showModal = (Код_занятия, Код_студента) => {
-    console.log(Код_занятия, Код_студента)
     this.setState({
       show: !this.state.show,
       Код_занятия: Код_занятия,
