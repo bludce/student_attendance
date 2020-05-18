@@ -1,18 +1,13 @@
 import sql from "../models/db.js";
 
 const deleteSkip = (req, res) => {
-  const body = req.body
+  const valid = req.body.Описание
   const skipId = req.params.skipId;
   const studId = req.params.studId;
 
-  if (!body) {
-    return res.status(400).json({
-      success: false,
-      error: 'You must provide a body to delete',
-    })
-  }
+  
 
-  sql.query('UPDATE Пропуски SET Уважительно=1 WHERE Код_занятия = ? AND Код_студента = ?', [skipId, studId], (error, response) => {
+  sql.query('UPDATE Пропуски SET Уважительно=1, Описание = ? WHERE Код_занятия = ? AND Код_студента = ?', [valid, skipId, studId], (error, response) => {
     if (error) throw error;
 	  return res.status(200).json({ 
       success: true, 

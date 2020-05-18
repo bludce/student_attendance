@@ -85,7 +85,7 @@ export default class SigninScreen extends React.Component {
                     }
                     {!this.state.spinner &&
                         <Button
-                            title="Войти"
+                            title="Войти!"
                             onPress={this._signInHandler}
                         />
                     }

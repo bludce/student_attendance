@@ -4,7 +4,7 @@ import SkipController from '../controllers/skip.controller';
 
 const router = Router()
 
-router.delete('/:skipId/:studId', (req, res) => { 
+router.put('/:skipId/:studId', (req, res) => { 
   SkipController.deleteSkip(req, res) 
 })
 router.get('/', (req, res) => {

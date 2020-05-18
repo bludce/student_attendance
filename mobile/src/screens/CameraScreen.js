@@ -20,7 +20,7 @@ export default function App() {
 
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    alert(`Вы успешно отметелись на занятии`);
+    alert(`Вы успешно отметились на занятии`);
     const ФИО = await AsyncStorage.getItem('userName');
 
     const obj = {
